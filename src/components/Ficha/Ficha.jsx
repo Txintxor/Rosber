@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   InputContainer,
   OutputContainer,
@@ -23,6 +23,10 @@ const Ficha = () => {
     ingredientes: [],
     procesos: [],
   });
+  const [ingrediente, setIngrediente] = useState(null);
+  const [cantidad, setCantidad] = useState(null);
+  const [unidad, setUnidad] = useState(null);
+  const [ingredientes, setIngredientes] = useState([]);
 
   //Estado que indica que faltan datos por introducir
   const [datos, setDatos] = useState(true);
@@ -46,35 +50,36 @@ const Ficha = () => {
     }
   };
 
-  //Método que recoge los inputs de ingredientes y procesos y los introduce
-  //en su repectivos arrays
+  //Métodos que recogen los inputs de ingredientes y procesos y los introduce en su estado
+    const fillIngredient = () => {
+    if (!ingrediente || !cantidad || !unidad) {
+      return;
+    } else {
+      setIngredientes((prevState) => [...prevState, 
+        {ingrediente: ingrediente,
+        cantidad: cantidad,
+        unidad: unidad,}]
+      );
+    }
+  };
+
+  useEffect(() => {
+    console.log(ingredientes);
+    // setFicha((prevState) => ({ ...prevState, ingredientes: ingredientes }));
+  }, [ingredientes]);
+
+  //Métodos que recogen los inputs de procesos y los introduce en su estado
   const fillArrayFicha = (id, value) => {
     if (!value) return;
     else {
       const element = document.querySelector("#" + id);
-
-      switch (id) {
-        case "ingrediente":
-          const ingre = ficha.ingredientes.concat(value);
-          setFicha((prevState) => ({
-            ...prevState,
-            ingredientes: ingre,
-          }));
-          element.value = "";
-          break;
-        case "proceso":
           const procesos = ficha.procesos.concat(value);
           setFicha((prevState) => ({ ...prevState, procesos: procesos }));
           element.value = "";
-          break;
-        default:
-          break;
       }
-    }
   };
-
   //Método que comprueba que todos los campos están rellenos y los
-  //guarda (de momento en localStorage)
+  //guarda
   const enviar = (e) => {
     const output = Array.from(document.querySelectorAll(".outputP"));
     const input = Array.from(document.querySelectorAll(".input"));
@@ -117,7 +122,7 @@ const Ficha = () => {
     }
   };
 
-  //Retorno a Renderizar
+  //Retorno a pintar
   return (
     <main className="mainContainer" id="fichaMain">
       {/* Bloque de inputs */}
@@ -151,30 +156,36 @@ const Ficha = () => {
         <InputContainer>
           <Label htmlFor="ingrediente">Añade ingrediente</Label>
           <div className="inputField">
-            <InputField
-              onKeyDown={(e) => {
-                if (e.code === "Enter") {
-                  handleKeyPress("#ingrediente");
-                }
-              }}
-              className="arrayInput, input"
-              type="text"
-              name="ingrediente"
-              id="ingrediente"
-            />
-            <Button
-              onClick={() =>
-                fillArrayFicha(
-                  "ingrediente",
-                  document.querySelector("#ingrediente").value
-                )
-              }
-            >
-              +
-            </Button>
+            <DivList style={{ marginRight: "1rem" }}>
+              <Label htmlFor="ingrediente">Ingrediente</Label>
+              <InputField
+                onChange={(e) => setIngrediente(e.target.value)}
+                className="arrayInput input"
+                type="text"
+                name="ingrediente"
+                id="ingrediente"
+              />
+              <Label htmlFor="cantidad">Cantidad</Label>
+              <InputField
+                onChange={(e) => setCantidad(e.target.value)}
+                className="arrayInput input"
+                type="number"
+                name="cantidad"
+                id="cantidad"
+              />
+              <Label htmlFor="unidad">Unidad de medida</Label>
+              <InputField
+                onChange={(e) => setUnidad(e.target.value)}
+                className="arrayInput input"
+                type="text"
+                name="unidad"
+                id="unidad"
+              />
+            </DivList>
+            <Button onClick={() => fillIngredient()}>+</Button>
           </div>
           <Label htmlFor="proceso">Añade paso de elaboración</Label>
-          <div className="inputField, input">
+          <div className="inputField input">
             <InputField
               onKeyDown={(e) => {
                 if (e.code === "Enter") {
@@ -224,10 +235,10 @@ const Ficha = () => {
           </OutputList>
           <Label htmlFor="ingrediente">Ingredientes</Label>
           <OutputList>
-            {ficha.ingredientes.map((e, index) => (
+            {/* {ficha.ingredientes.map((e, index) => (
               <OutputLi key={e + index}>
                 <p className="outputP" id="ingredientesP">
-                  - {e}{" "}
+                  - {e.cantidad + "  " + e.unidad + " " + e.ingrediente}
                   <DelButton
                     onClick={(e) =>
                       (e.target.parentElement.parentElement.innerHTML = "")
@@ -237,14 +248,14 @@ const Ficha = () => {
                   </DelButton>
                 </p>
               </OutputLi>
-            ))}
+            ))} */}
           </OutputList>
           <Label htmlFor="proceso">Proceso de elaboración</Label>
           <OutputList>
             {ficha.procesos.map((e, index) => (
               <OutputLi key={e + index}>
                 <p id="procesosP" className="outputP">
-                  - {e}{" "}
+                  - {e}
                   <DelButton
                     onClick={(e) =>
                       (e.target.parentElement.parentElement.innerHTML = "")

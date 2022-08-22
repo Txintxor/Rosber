@@ -7,8 +7,8 @@ import Ficha from "../components/Ficha/Ficha";
 import Recetas from "../components/Recetas/Recetas";
 import RecetasOutput from "../components/Recetas/RecetasOutput";
 import Produccion from "../components/Produccion/Produccion";
-import EscEvento from "../components/Produccion/ProdEvento";
-import EscPartida from "../components/Produccion/ProdPartida";
+import ProdEvento from "../components/Produccion/ProdEvento";
+import ProdPartida from "../components/Produccion/ProdPartida";
 import Admin from "../components/Admin/Admin";
 import AdminLogin from "../components/Admin/AdminLogin";
 import AdminRegister from "../components/Admin/AdminRegister";
@@ -27,8 +27,8 @@ const Rutas = () => {
         <Route exact path="/Recetas" element={<ProtectedRoute><Recetas /></ProtectedRoute>} />
         <Route exact path="/RecetasOutput" element={<ProtectedRoute><RecetasOutput /></ProtectedRoute>} />
         <Route exact path="/Produccion" element={<ProtectedRoute><Produccion /></ProtectedRoute>} />
-        <Route exact path="/EscEvento" element={<ProtectedRoute><EscEvento /></ProtectedRoute>} />
-        <Route exact path="/EscPartida" element={<ProtectedRoute><EscPartida /></ProtectedRoute>} />
+        <Route exact path="/ProdEvento" element={<ProtectedRoute><ProdEvento /></ProtectedRoute>} />
+        <Route exact path="/ProdPartida" element={<ProtectedRoute><ProdPartida /></ProtectedRoute>} />
         <Route exact path="/Admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
         <Route exact path="/AdminLogin" element={<ProtectedRoute><AdminLogin /></ProtectedRoute>} />
         <Route exact path="/AdminRegister" element={<ProtectedRoute><AdminRegister /></ProtectedRoute>} />

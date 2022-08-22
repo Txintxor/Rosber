@@ -13,12 +13,9 @@ const Home = () => {
         <Card className="card" href="/Recetas">
           <p>Indice de recetas</p>
         </Card>
-        {/* <Card className="card" href="/EscEvento">
-          <p>Crea lista de producción para eventos</p>
+        <Card className="card" href="/Produccion">
+          <p>Crea lista de producción</p>
         </Card>
-        <Card className="card" href="/EscPartida">
-          <p>Crea lista de producción para partida</p>
-        </Card> */}
       </HomeContent>
     </main>
   );

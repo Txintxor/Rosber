@@ -23,7 +23,8 @@ export const OutputContainer = styled.section`
   display: flex;
   flex-direction: column;
   margin-bottom: 3rem;
-  &:media (max-width: 900px) {
+  
+  @media (max-width: 900px) {
     width: fit-content;
   }
 `;
@@ -49,7 +50,7 @@ export const OutputList = styled.div`
 `;
 
 export const OutputLi = styled.li`
-display:flex:
+display:flex;
 flex-direction: row;
 list-style-type: none;
 `;
@@ -64,9 +65,10 @@ export const FormList = styled.form`
   font: inherit;
   color: inherit;
 `;
-export const DivList = styled.form`
+export const DivList = styled.div`
   display: flex;
   flex-direction: column;
+  height: fit-content;
   border: 2px solid ${border};
   border-radius: 4px;
   margin: 0.5rem 0 1rem 0;

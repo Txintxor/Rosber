@@ -49,9 +49,9 @@ const NavBar = () => {
         <Listed>
           <a href="/Ficha">Crea ficha</a>
         </Listed>
-        {/* <Listed>
-          <a href="/Produccion">Listas de producción</a>
-        </Listed> */}
+        <Listed>
+          <a href="/Produccion">Crea lista de producción</a>
+        </Listed>
         <Listed>
           <a href="/Recetas">Recetas</a>
         </Listed>
